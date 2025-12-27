@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Štátnice 🐹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Righteous&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #FF69B4;
+            --hot-pink: #FF1493;
+            --pastel-pink: #FFB6C1;
+            --pastel-purple: #DDA0DD;
+            --pastel-blue: #87CEEB;
+            --pastel-yellow: #FFEB99;
+            --pastel-green: #98FB98;
+            --cream: #FFF8DC;
+        }
+
+        body {
+            font-family: 'Righteous', cursive;
+            background: radial-gradient(circle at 20% 50%, var(--pastel-pink) 0%, var(--pastel-purple) 50%, var(--pastel-blue) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .guinea-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .guinea-pig {
+            position: absolute;
+            font-size: 40px;
+            animation: float-diagonal 12s infinite ease-in-out;
+        }
+
+        @keyframes float-diagonal {
+            0% { transform: translate(0, 100vh) rotate(0deg); opacity: 0; }
+            5% { opacity: 0.8; }
+            50% { transform: translate(30vw, 50vh) rotate(180deg); }
+            95% { opacity: 0.8; }
+            100% { transform: translate(60vw, -20vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Lilita One', cursive;
+            font-size: 4em;
+            color: var(--hot-pink);
+            text-shadow: 4px 4px 0px #FFE4E1, 8px 8px 0px var(--pastel-yellow);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Caveat', cursive;
+            font-size: 2em;
+            color: #333;
+            background: var(--pastel-yellow);
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+    background: var(--cream);
+    border-radius: 25px;
+    padding: 0;  /* Zmenené z 30px na 0 */
+    box-shadow: 0 8px 0 rgba(0,0,0,0.1), 0 15px 30px rgba(0,0,0,0.2);
+    border: 5px solid var(--hot-pink);
+    transition: all 0.3s ease;
+    overflow: hidden;  /* Pridané */
+}
+    .card-content {
+        padding: 30px;
+    }
+    .mood-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.mood-option {
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 4px solid transparent;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1 / 1; /* Spraví štvorce */
+}
+
+.mood-option:hover {
+    transform: scale(1.05);
+    border-color: var(--hot-pink);
+}
+
+.mood-option.selected {
+    border-color: var(--hot-pink);
+    box-shadow: 0 0 20px rgba(255,20,147,0.5);
+}
+
+.card-image {
+    width: 600px;
+    height: 600px;
+    object-fit: cover;
+    display: block;
+
+}
+.card-image-2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+}
+
+.mood-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(0,0,0,0.6);
+    padding: 5px 15px;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-title {
+            font-family: 'Lilita One', cursive;
+            font-size: 2em;
+            color: var(--hot-pink);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quote-display {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            min-height: 150px;
+            margin-bottom: 20px;
+            border-left: 8px solid var(--pastel-purple);
+        }
+
+        .quote-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8em;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .quote-author {
+            font-size: 1em;
+            color: #666;
+            margin-top: 15px;
+            font-style: italic;
+            text-align: right;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--hot-pink) 0%, var(--pink) 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Righteous', cursive;
+            box-shadow: 0 5px 0 #C71585, 0 8px 20px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            display: block;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #C71585, 0 12px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+
+
+        .mood-emoji {
+            font-size: 60px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+       
+
+        .mood-message {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .mood-message.show {
+            display: block;
+        }
+
+        .mood-message-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6em;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .timer-display {
+            font-size: 4em;
+            color: var(--hot-pink);
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Lilita One', cursive;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .timer-controls button {
+            flex: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pastel-green), var(--pastel-yellow), var(--pastel-pink));
+            border-radius: 20px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .progress-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .progress-controls button {
+            flex: 1;
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .catch-game {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(180deg, var(--pastel-blue) 0%, var(--pastel-green) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 4px solid var(--hot-pink);
+        }
+
+        .falling-item {
+            position: absolute;
+            font-size: 40px;
+            cursor: pointer;
+            animation: fall 3s linear;
+        }
+
+        @keyframes fall {
+            from { top: -50px; }
+            to { top: 100%; }
+        }
+
+        .score {
+            font-size: 1.5em;
+            color: var(--hot-pink);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .emergency-zone {
+            grid-column: 1 / -1;
+        }
+
+        .emergency-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .emergency-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 25px;
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+        }
+
+        footer p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5em;
+            color: #333;
+            font-weight: 700;
+                }
+
+
+    </style>
+</head>
+<body>
+    <div class="guinea-container" id="guineaContainer"></div>
+
+    <div class="container">
+        <header>
+            <h1>💊 Štátničky 💊</h1>
+            <p class="subtitle">prijebanééé</p>
+        </header>
+
+        <div class="grid">
+            <!-- Generátor Motivácie -->
+            <div class="card">
+                <h2 class="card-title">🎲 Generátor múdrosti</h2>
+                <div class="quote-display">
+                    <p class="quote-text" id="quoteText">Klikni na tlačidlo pre dávku inšpirácie!</p>
+                    <p class="quote-author" id="quoteAuthor"></p>
+                </div>
+                <button class="btn" id="quoteBtn">✨ Nová múdrosť!</button>
+            </div>
+
+            <!-- Nahraď celú sekciu Náladometer -->
+
+        <!-- Náladometer -->
+        <div class="card">
+    <div class="card-content">
+        <h2 class="card-title">🌡️ Náladometer</h2>
+        <div class="mood-options">
+            <div class="mood-option" data-mood="excellent">
+                <img src="./assets/corgi.png" alt="corgi" class="card-image-2">
+                <div class="mood-label">Super!</div>
+            </div>
+            <div class="mood-option" data-mood="good">
+                <img src="./assets/prasatko.jpg" alt="cockerspaniel" class="card-image">
+                <div class="mood-label">Okej</div>
+            </div>
+            <div class="mood-option" data-mood="meh">
+                <img src="./assets/cockr.jpg" alt="morské prasiatko" class="card-image">
+                <div class="mood-label">Meh</div>
+            </div>
+            <div class="mood-option" data-mood="help">
+                <img src="./assets/stewie.png" alt="help" class="card-image">
+                <div class="mood-label">POMOC!</div>
+            </div>
+        </div>
+        <div class="mood-message" id="moodMessage">
+            <p class="mood-message-text" id="moodMessageText"></p>
+        </div>
+    </div>  <!-- ZATVÁRAŠ card-content -->
+</div>
+
+            <!-- Timer -->
+            <div class="card">
+                <h2 class="card-title">⏱️ Štúdium Timer</h2>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn" id="startBtn">▶️ Štart</button>
+                    <button class="btn" id="pauseBtn">⏸️ Pauza</button>
+                    <button class="btn" id="resetBtn">🔄 Reset</button>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="card">
+                <h2 class="card-title">📊 Tvoj Pokrok</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;">0%</div>
+                </div>
+                <div class="progress-controls">
+                    <button class="btn" data-progress="10">+10%</button>
+                    <button class="btn" data-progress="25">+25%</button>
+                    <button class="btn" data-progress="-10">-10%</button>
+                    <button class="btn" data-progress="-100">Reset</button>
+                </div>
+            </div>
+
+            <!-- Hra -->
+            <div class="card">
+                <h2 class="card-title">🎮 Chyť Prasiatko!</h2>
+                <div class="catch-game" id="catchGame"></div>
+                <div class="score">Skóre: <span id="gameScore">0</span></div>
+                <button class="btn" id="gameBtn">🎯 Spustiť Hru</button>
+            </div>
+
+            <!-- Emergency -->
+            <div class="card emergency-zone">
+                <h2 class="card-title">🚨 Núdzová Zóna</h2>
+                <div class="emergency-buttons">
+                    <button class="btn emergency-btn" id="coffeeBtn">☕ KÁVA TERAZ!</button>
+                    <button class="btn emergency-btn" id="celebrateBtn">🎉 OSLAVA!</button>
+                    <button class="btn emergency-btn" id="panicBtn">😱 PANIKA!</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>💕 Vytvorené s láskou pre najlepšiu študentku farmácie! 💕</p>
+            <p>🐹 Morské prasiatka ti veria! 🐹</p>
+        </footer>
+    </div>
+
+    <script>
+        // Floating guinea pigs
+        function createGuineaPigs() {
+            const container = document.getElementById('guineaContainer');
+            const guineaEmojis = ['🐹', '🐭', '🐀', '🐿️'];
+            
+            for (let i = 0; i < 20; i++) {
+                const guinea = document.createElement('div');
+                guinea.className = 'guinea-pig';
+                guinea.textContent = guineaEmojis[Math.floor(Math.random() * guineaEmojis.length)];
+                guinea.style.left = Math.random() * 100 + 'vw';
+                guinea.style.animationDelay = Math.random() * 12 + 's';
+                guinea.style.animationDuration = (8 + Math.random() * 8) + 's';
+                container.appendChild(guinea);
+            }
+        }
+
+        // Quotes
+        const funnyQuotes = [
+            { text: "Wheek wheek! Farmakológia je len fancy slovko pre 'viem čo je v tabletkách'. A ty to vieš! 💊", author: "Prasiatko Supreme" },
+            { text: "Dnes si možno unavená, ale zajtra budeš farmaceutka! A to je hustý flex. 💪", author: "Gangsta Guinea Pig" },
+            { text: "Píííííp! Veď je to len zopár otázok o liečivách. Easy peasy lemon squeezy! 🍋", author: "Optimistické Prasiatko" },
+            { text: "Organická chémia? To je len láska k uhlíku a jeho kamarátom. A ty ich milúješ! 💕", author: "Corgi Chemik" },
+            { text: "Wheek! Farmakodynamika je fancy slovko pre 'čo liek robí telu'. Farmako-kinetika? 'Čo telo robí lieku'. Hotovo! 🎓", author: "Prasiatko PhD" },
+            { text: "Woof! Galenická farmácia je v podstate varenie, len s presnejšími receptami! 👨‍🍳💊", author: "Cockerspaniel Galenikus" },
+            { text: "Píííp! Receptúra je Tetris s liečivami. A ty si majster Tetrisu! 🎮", author: "Gaming Guinea Pig" },
+            { text: "Metabolizmus v pečeni? Len si predstav pečeň ako clubového DJa čo remixa všetko čo príde! 🎧", author: "Party Prasiatko" },
+            { text: "Wheek wheek! Cytochróm P450? Znie to sci-fi, ale je to len tvoj vnútorný chemický závod! 🏭", author: "Sci-Fi Prasiatko" },
+            { text: "Woof! Farmakognózia je botanika + chémia + trochu mágie rastlín. Basically Harry Potter pre farmaceutov! ⚗️", author: "Wizard Corgi" },
+            { text: "Biotransformácia? Len telo hrá hru 'upgraduj tento liek na niečo čo môžem vyhodiť'. Level design! 🎯", author: "Gamer Guinea Pig" },
+            { text: "Píííííp! Toxikológia je len farmakológia keď to preženiete. Stay chill a všetko bude ok! 😎", author: "Chill Prasiatko" },
+            { text: "Farmakokinetické parametre: ADME. Absorpcia, Distribúcia, Metabolizmus, Exkrécia. Liek ide na road trip telom! 🚗", author: "Traveler Cockerspaniel" },
+            { text: "Woof woof! Liekové interakcie sú len drama medzi liečivami. Kto sa s kým pohádal v pečeni dnes? 🎭", author: "Drama Corgi" },
+            { text: "Wheek! Dispenzačná prax? To je len Tinder pre pacientov a lieky. Match making! 💘", author: "Romantic Prasiatko" },
+            { text: "Biologická dostupnosť je len percentuálne vyjadrenie toho koľko z lieku reálne dostane šancu makať! 📊", author: "Stats Guinea Pig" },
+            { text: "Píp píp! Antibiotiká: malí bojovníci čo bijú baktérie. Basically Avengers na mikroúrovni! 🦸", author: "Marvel Fan Prasiatko" },
+            { text: "Woof! Half-life lieku nie je videohra, ale je to rovnako dôležité vedieť! ⏰", author: "Nerd Cockerspaniel" },
+            { text: "Wheeeek! Gastrointestinálny trakt je len super dlhá šmýkačka pre lieky. Wheee! 🎢", author: "Adrenaline Junkie Prasiatko" }
+        ];
+
+        document.getElementById('quoteBtn').addEventListener('click', function() {
+            const quote = funnyQuotes[Math.floor(Math.random() * funnyQuotes.length)];
+            document.getElementById('quoteText').textContent = quote.text;
+            document.getElementById('quoteAuthor').textContent = '— ' + quote.author;
+        });
+
+        // Mood
+        const moodMessages = {
+            excellent: { emoji: '🐕', messages: ["Woof! Tá energia! Využi ju! 🚀", "Super nálada = super učenie! 🌟"] },
+            good: { emoji: '🐶', messages: ["Solidná nálada! Stačí malá káva! ☕", "Okej je úplne ok! ⭐"] },
+            meh: { emoji: '🐹', messages: ["Wheek... Baby steps! 🐾", "Meh nálada? Daj si pauzu! 🍰"] },
+            help: { emoji: '😵', messages: ["RED ALERT! OKAMŽITÁ PAUZA! 🚨 NÁDYCH 4 SEKUNDY, VÝDYCH 4 SEKUNDY"] }
+        };
+
+        document.querySelectorAll('.mood-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                const mood = this.getAttribute('data-mood');
+                const moodData = moodMessages[mood];
+                const message = moodData.messages[Math.floor(Math.random() * moodData.messages.length)];
+                
+                document.getElementById('moodMessageText').textContent = moodData.emoji + ' ' + message;
+                document.getElementById('moodMessage').classList.add('show');
+            });
+        });
+
+        // Timer
+        let timerInterval = null;
+        let timeLeft = 25 * 60;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        document.getElementById('startBtn').addEventListener('click', function() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    alert('🎉 Čas vypršal! Wheek wheek!');
+                    timeLeft = 25 * 60;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        });
+
+        document.getElementById('pauseBtn').addEventListener('click', function() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timeLeft = 25 * 60;
+            updateTimerDisplay();
+        });
+
+        // Progress
+        let currentProgress = 0;
+        document.querySelectorAll('.progress-controls button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const change = parseInt(this.getAttribute('data-progress'));
+                currentProgress += change;
+                if (currentProgress > 100) currentProgress = 100;
+                if (currentProgress < 0) currentProgress = 0;
+                
+                const fill = document.getElementById('progressFill');
+                fill.style.width = currentProgress + '%';
+                fill.textContent = currentProgress + '%';
+            });
+        });
+
+        // Game
+        let gameScore = 0;
+        let gameActive = false;
+
+        document.getElementById('gameBtn').addEventListener('click', function() {
+            if (gameActive) return;
+            gameActive = true;
+            gameScore = 0;
+            document.getElementById('gameScore').textContent = gameScore;
+            
+            const game = document.getElementById('catchGame');
+            game.innerHTML = '';
+            
+            const gameInterval = setInterval(() => {
+                if (!gameActive) {
+                    clearInterval(gameInterval);
+                    return;
+                }
+                
+                const item = document.createElement('div');
+                item.className = 'falling-item';
+                item.textContent = Math.random() > 0.3 ? '🐹' : '🥕';
+                item.style.left = Math.random() * (game.offsetWidth - 40) + 'px';
+                
+                item.addEventListener('click', function() {
+                    gameScore += item.textContent === '🐹' ? 10 : 5;
+                    document.getElementById('gameScore').textContent = gameScore;
+                    this.remove();
+                });
+                
+                game.appendChild(item);
+                setTimeout(() => { if (item.parentNode) item.remove(); }, 3000);
+            }, 800);
+            
+            setTimeout(() => {
+                gameActive = false;
+                alert('🎮 Hra skončila! Skóre: ' + gameScore + '!');
+            }, 20000);
+        });
+
+        // Emergency
+        document.getElementById('coffeeBtn').addEventListener('click', function() {
+            alert('☕ KÁVA MODE! Wheek! Odlož všetko!');
+        });
+
+        document.getElementById('celebrateBtn').addEventListener('click', function() {
+            alert('🎉 OSLAVA! Píííp píp!');
+        });
+
+        document.getElementById('panicBtn').addEventListener('click', function() {
+            alert('🐕 CORGI HOVORÍ: Dýchaj! 4 sekundy dnu, 4 sekundy von!');
+        });
+
+        // Initialize
+        createGuineaPigs();
+        updateTimerDisplay();
+    </script>
+</body>
+</html>
